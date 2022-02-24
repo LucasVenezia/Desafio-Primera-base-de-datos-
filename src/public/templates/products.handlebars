@@ -1,0 +1,27 @@
+{{#if products}}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col"># ID</th>
+                <th scope="col">PRODUCTO</th>
+                <th scope="col">PRECIO</th>
+                <th scope="col">FOTO</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each products}}
+                <tr>
+                    <th scope="row">{{this.id}}</th>
+                    <td>{{this.title}}</td>
+                    <td>{{this.price}}</td>
+                    <td class="size"><img class= "thumbnail" src="{{this.thumbnail}}" alt="{{this.title}}" ></td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    {{else}}
+    <h2>NO HAY PRODUCTOS EN LA LISTA</h2>
+{{/if}} 
+
+
+<a href="/" class="btn btn-success">Volver a Inicio</a>

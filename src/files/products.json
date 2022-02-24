@@ -1,0 +1,26 @@
+[
+  {
+    "title": "pinza",
+    "price": "350",
+    "thumbnail": "https://www.martinezescalada.com.ar/552-extra_large_default/pinza-universal-992802-8.jpg",
+    "id": 1
+  },
+  {
+    "title": "martillo",
+    "price": "400",
+    "thumbnail": "https://indufer.com.ar/wp-content/uploads/2018/07/martillo-carpintero-stanley-51271-D_NQ_NP_607618-MLV26988783339_032018-F-1.jpg",
+    "id": 2
+  },
+  {
+    "title": "pinza",
+    "price": "250",
+    "thumbnail": "https://www.martinezescalada.com.ar/552-extra_large_default/pinza-universal-992802-8.jpg",
+    "id": 3
+  },
+  {
+    "title": "pinza",
+    "price": "5896",
+    "thumbnail": "https://www.martinezescalada.com.ar/552-extra_large_default/pinza-universal-992802-8.jpg",
+    "id": 4
+  }
+]
