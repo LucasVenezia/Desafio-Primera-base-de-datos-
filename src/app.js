@@ -1,7 +1,8 @@
-
 const express = require('express');
-const Container = require('./Managers/Container');
+//const Container = require('./Managers/Container');
 const {Server} = require('socket.io');
+const {products,messages} = require ('./options/DB.js')
+const routes = require ('./routes/routes.js')
 
 const app = express();
 
@@ -12,34 +13,34 @@ app.use(express.urlencoded({extended:true}));
 
 app.use(express.static(__dirname+'/public'));
 
-
+app.use('/',routes);
 let log = []
 
-productService = new Container();
+
 
 
 io.on('connection',async socket=>{
     console.log("Cliente conectado");
-    let products = await productService.getAll();
-    io.emit('products',products);
+    let items = await products.getAll();
+    io.emit('products',items);
     socket.broadcast.emit('newUser')
 
     socket.on('sendProduct',async data=>{
-        await productService.addProduct(data);
-        let products = await productService.getAll();
-        io.emit('productLog',products);
+        await products.add(data);
+        let items = await products.getAll();
+        let productsList = JSON.parse(JSON.stringify(items))
+        io.emit('productLog', productsList);
     })
 
-    socket.on('message',data=>{
-        log.push(data);
-        io.emit('log',log);
+    socket.on('sendMessage',async data=>{
+        await messages.add(data);
+        let items = await messages.getAll();
+        let messagesList = JSON.parse(JSON.stringify(items));
+        io.emit('messagesLog',messagesList);
     })
 
     socket.on('registered',data=>{
-        socket.emit('log',log);
+        socket.emit('messages',messages);
     })
     
 })
-console.log(log);
-
-

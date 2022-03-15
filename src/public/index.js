@@ -24,17 +24,22 @@ Swal.fire({
     socket.emit('registered',user);
 })
 chatBox.addEventListener('keyup',(evt)=>{
-
+    
     if(evt.key==="Enter"){
         if(chatBox.value.trim().length>0){
-            socket.emit('message',{user:user,message:chatBox.value.trim()})
+            let date = new Date();
+            const formatDate = (current_datetime)=>{
+                let formatted_date = "[" + current_datetime.getDate() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getFullYear() + " " + current_datetime.getHours() + ":" + current_datetime.getMinutes() + ":" + current_datetime.getSeconds() + "]";
+                return formatted_date}
+            socket.emit('sendMessage',{user:user,timeStamp:formatDate(date),message:chatBox.value.trim(),})
             chatBox.value="";
         }
     }
 })
 
-socket.on('productLog',(data)=>{
-    let products = data.productList;
+socket.on('productLog',(productsList)=>{
+    let products = productsList;
+    console.log(products);
     let productsTemplate = document.getElementById("productsTemplate");
     fetch('templates/products.handlebars').then(response=>{
         return response.text();
@@ -56,17 +61,11 @@ socket.on('newUser',(data)=>{
         position:"top-right",
     })
 })
-socket.on('log',data=>{
+socket.on('messagesLog', messagesList=>{
     let log = document.getElementById('log')
     let messages = "";
-    let date = new Date();
-
-    const formatDate = (current_datetime)=>{
-    let formatted_date = "[" + current_datetime.getDate() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getFullYear() + " " + current_datetime.getHours() + ":" + current_datetime.getMinutes() + ":" + current_datetime.getSeconds() + "]";
-    return formatted_date;
-}
-    data.forEach(message=>{
-        messages  = messages+ `${message.user} ${formatDate(date)} dice: ${message.message}</br>`;
+    messagesList.forEach(message=>{
+        messages  = messages+ `${message.user} ${message.timeStamp} dice: ${message.message}</br>`;
     })
     log.innerHTML = messages;
 })
