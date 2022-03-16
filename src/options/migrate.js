@@ -19,7 +19,7 @@ const { mariadb, sqlite } = require('./connections.js');
       table.increments('id');
       table.string('user',60).nullable(false);
       table.text('message',2000).nullable(false);
-      table.datetime('timeStamp');
+      table.string('timeStamp');
     })
     console.log('Migration to sqlite done.')
   }
